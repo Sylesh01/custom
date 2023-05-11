@@ -1,0 +1,74 @@
+<?php
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_install().
+ */
+function landingpage_install() {
+  // Create the custom content type.
+  $type = 'landing_page';
+  $name = 'Landing Page';
+  $description = 'A custom content type created programmatically.';
+  $node_type = NodeType::create([
+    'type' => $type,
+    'name' => $name,
+    'description' => $description,
+    'help' => '',
+    'new_revision' => TRUE,
+  ]);
+  $node_type->save();
+
+// Create the field storage for custom_field1.
+$storage = FieldStorageConfig::create([
+  'field_name' => 'custom_field1',
+  'entity_type' => 'node',
+  'type' => 'text',
+  'cardinality' => 1,
+  'translatable' => TRUE,
+  'locked' => FALSE,
+]);
+$storage->save();
+
+// Add the first field.
+$field_name = 'custom_field1';
+$field_label = 'Custom Field 1';
+$field = FieldConfig::create([
+  'field_name' => $field_name,
+  'entity_type' => 'node',
+  'bundle' => $type,
+  'label' => $field_label,
+  'required' => TRUE,
+  'settings' => [
+    'max_length' => 255,
+  ],
+  'field_type' => 'text',
+]);
+$field->save();
+
+// Create the field storage for custom_field12
+$storage = FieldStorageConfig::create([
+  'field_name' => 'custom_field2',
+  'entity_type' => 'node',
+  'type' => 'text',
+  'cardinality' => 1,
+  'translatable' => TRUE,
+  'locked' => FALSE,
+]);
+$storage->save();
+
+// Add the second field.
+$field_name = 'custom_field2';
+$field_label = 'Custom Field 2';
+$field = FieldConfig::create([
+  'field_name' => $field_name,
+  'entity_type' => 'node',
+  'bundle' => $type,
+  'label' => $field_label,
+  'required' => FALSE,
+  'field_type' => 'text',
+]);
+$field->save();
+}
