@@ -8,9 +8,17 @@ use Drupal\field\Entity\FieldStorageConfig;
  * Implements hook_install().
  */
 function landingpage_install() {
+  $node_types = NodeType::loadMultiple();
+  $node_ids = [];  
+  foreach ($node_types as $node){
+        $node_ids[] = $node->id();
+  }
   // Create the custom content type.
   $type = 'landing_page';
   $name = 'Landing Page';
+  if (in_array($type, $node_ids)) {
+    return;
+  } else {
   $description = 'A custom content type created programmatically.';
   $node_type = NodeType::create([
     'type' => $type,
@@ -71,4 +79,5 @@ $field = FieldConfig::create([
   'field_type' => 'text',
 ]);
 $field->save();
+}
 }
