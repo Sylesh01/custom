@@ -1,14 +1,30 @@
 <?php
 
 use Drupal\Core\Form\FormStateInterface;
+
+//hook_form_alter
+
 function landingpage_form_alter(&$form,  $form_state, $form_id) {
-    kint($form);
+    // kint($form);
     if ($form_id == 'node_page_form'){
         $form['new_field'] = [
-            '#type' => 'textfield',
+            '#type' => 'full_html',
             '#title' => t('New Field'),
             '#default_value' => '',
             '#required' => FALSE,
           ];
     }
+}
+
+// hook_form_id_form_alter
+
+function landingpage_form_node_article_form_alter(&$form, $form_state, $form_id) {
+    if ($form_id === 'node_article_form') {
+    $form['additional_field'] = [
+        '#type' => 'textfield',
+        '#title' => t('Additinal Field'),
+        '#default_value' => '',
+        '#required' => FALSE,
+      ];
+}
 }
