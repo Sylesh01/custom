@@ -1,0 +1,29 @@
+<?php
+
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\taxonomy\Entity\Term;
+
+function vocabulary_preprocess_page(&$variables) {
+      $vocabularies = Vocabulary::loadMultiple();
+      $list = [];
+      foreach($vocabularies as $values){
+        $list[] = $values->id();
+    }
+    $vid = 'car';
+    $name = 'Car';
+    if (!in_array($vid,$list)){
+$vocabulary = Vocabulary::create([
+    'vid' => $vid,
+    'name' => $name,
+    'description' => 'A vocabulary created programmatically.',
+  ]);
+  $vocabulary->save();
+  
+  // Create a new term within the vocabulary.
+  $term = Term::create([
+    'vid' => $vocabulary->id(),
+    'name' => 'Rolls Royce',
+  ]);
+  $term->save();
+}
+}

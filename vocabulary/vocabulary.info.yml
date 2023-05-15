@@ -1,0 +1,5 @@
+name: Vocabulary
+description: This module creates a vocabulary and term Programatically
+core_version_requirement: ^8 || ^9
+package: custom
+type: module
