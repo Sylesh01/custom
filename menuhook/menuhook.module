@@ -1,0 +1,111 @@
+<?php
+
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
+function menuhook_install() {
+    create_menu_item_programmatically();
+  }
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function menuhook_menu_links_discovered_alter(&$links) {
+  $links['custom-page'] = [
+    'title' => 'Custom Page',
+    'route_name' => '<front>',
+    'menu_name' => 'main',
+    'expanded' => TRUE,
+    'weight' => 10,
+    'metadata' => [
+        'deletable' => TRUE,
+      ],
+  ];
+}
+
+
+/**
+ * Create a menu item programmatically.
+ */
+function create_menu_item_programmatically() {
+    // Create a new menu link entity.
+    $menu_link = MenuLinkContent::create([
+        'title' => 'Custom Menu Item',
+        'link' => ['uri' => 'internal:/'],
+        'menu_name' => 'main',
+        'expanded' => TRUE,
+        'weight' => 10,
+      ]);
+  
+    // Save the menu link entity.
+    $menu_link->save();
+  }
+//     $entity_type_manager = \Drupal::service('entity_type.manager');
+//     $menu_link_storage = $entity_type_manager->getStorage('menu_link_content');
+  
+//     $query = $menu_link_storage->getQuery();
+//     $query->condition('menu_name', 'main');
+//     $query->condition('link.uri', 'https://www.google.com/');
+//     $entity_ids = $query->execute();
+//     foreach($entity_ids as $id){
+//         $link = MenuLinkContent::load($id);
+//     if ($link) {
+//     $plugin_definition = $link->getPluginDefinition();
+//     kint($plugin_definition);
+//     if (isset($plugin_definition['menu_name']) && $plugin_definition['menu_name'] === 'main') {
+//       $current_title = $link->getTitle();
+//       $new_title = 'External'; // Set the new title value here
+//       if ($current_title === 'external link') {
+//         $link->title = $new_title;
+//         $link->save();
+//       }
+//     }
+//   }
+// }
+
+// $entity_type_manager = \Drupal::entityTypeManager();
+// $menu_link_storage = $entity_type_manager->getStorage('menu_link_content');
+
+// $query = $menu_link_storage->getQuery()
+//   ->condition('menu_name', 'main')
+//   ->condition('link.uri', 'https://www.google.com/');
+// $entity_ids = $query->execute();
+
+// foreach ($entity_ids as $id) {
+//   $link = MenuLinkContent::load($id);
+//   if ($link && $link->getMenuName() === 'main' && $link->getTitle() === 'external link') {
+//     $link->title = 'External';
+//     $link->save();
+//   }
+// }
+function menuhook_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+    var_dump($data);
+}
+
+function menuhook_preprocess_page(&$variables){
+$menu_links = \Drupal::entityTypeManager()
+  ->getStorage('menu_link_content')
+  ->loadByProperties([
+    'menu_name' => 'main',
+    'link.uri' => 'https://www.google.com/',
+    'title' => 'external link',
+  ]);
+foreach ($menu_links as $menu_link) {
+    $menu_link->title = 'External';
+    $menu_link->weight = 20;
+    $menu_link->save();
+    }
+}
+function menuhook_uninstall() {
+    $entityTypeManager = \Drupal::service('entity_type.manager');
+    
+    // Load the menu link entity.
+    $query = $entityTypeManager->getStorage('menu_link_content')->getQuery();
+    $query->condition('menu_name', 'main');
+    $query->condition('link.uri', 'internal:/');
+    $query->condition('title','Custom Menu Item');
+    $entity_ids = $query->execute();
+    
+    if (!empty($entity_ids)) {
+      $menu_link = $entityTypeManager->getStorage('menu_link_content')->load(reset($entity_ids));
+      $menu_link->delete();
+    }
+  }
