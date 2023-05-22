@@ -1,0 +1,5 @@
+name: User Login Hook
+description: Using a hook_user_login
+core_version_requirement: ^8 || ^9
+type: module
+package: Custom
