@@ -1,0 +1,15 @@
+<?php
+
+use Drupal\user\UserInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+
+function userlogin_user_login(UserInterface $account) {
+    if ($account
+      ->getAccountName() == 'admin') {
+        // $url = 'https://www.google.com/';
+        // $response = new RedirectResponse($url);
+        // $response->send();
+        // return;
+    }
+}
