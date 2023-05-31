@@ -1,0 +1,8 @@
+crud_js:
+  js:
+    js/crudjs.js: {}
+    dependencies:
+      - core/jquery
+  # css:
+  #   theme:
+  #     css/customcss.css: {}

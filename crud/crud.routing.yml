@@ -1,0 +1,33 @@
+crud.form:
+  path: '/crud-form'
+  defaults:
+    _form: 'Drupal\crud\Form\CrudForm'
+    _title: 'Crud Form'
+  requirements:
+    _permission: 'access content'
+
+crud.edit:
+  path: '/crud-form/edit'
+  defaults:
+    _form: '\Drupal\crud\Form\CrudForm'
+    _title: 'Crud Form'
+  requirements:
+    _access: 'TRUE'
+
+crud.display:
+  path: '/crud-display'
+  defaults:
+    _controller: 'Drupal\crud\Controller\Displaytable::displaytable'
+    _title: 'Crud Display'
+  requirements:
+    _permission: 'access content'
+
+crud.delete:
+  path: '/crud-form/delete/{id}'
+  defaults:
+    _form: 'Drupal\crud\Form\DeleteForm'
+    _title: 'Crud Delete'
+  requirements:
+    _permission: 'access content'
+
+
