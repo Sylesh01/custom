@@ -76,9 +76,9 @@ function create_menu_item_programmatically() {
 //     $link->save();
 //   }
 // }
-function menuhook_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-    var_dump($data);
-}
+// function menuhook_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+//     var_dump($data);
+// }
 
 function menuhook_preprocess_page(&$variables){
 $menu_links = \Drupal::entityTypeManager()
@@ -86,7 +86,7 @@ $menu_links = \Drupal::entityTypeManager()
   ->loadByProperties([
     'menu_name' => 'main',
     'link.uri' => 'https://www.google.com/',
-    'title' => 'external link',
+    'title' => 'external',
   ]);
 foreach ($menu_links as $menu_link) {
     $menu_link->title = 'External';
