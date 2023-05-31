@@ -1,0 +1,7 @@
+multistep_form.form:
+  path: '/admin/config/system/multistep-form'
+  defaults: 
+    _form: 'Drupal\multistep_form\Form\MultistepForm'
+    _title: 'Multi Step Form'
+  requirements:
+    _permission: 'access content'
