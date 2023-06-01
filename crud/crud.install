@@ -1,0 +1,37 @@
+<?php 
+
+
+function crud_schema(){
+    $schema['crud_table'] = [
+        'dectription'=> 'A table to store CRUD values',
+        'fields' => [
+            'id' => [
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ],
+            'name' => [
+                'type' => 'varchar',
+                'not null' => TRUE,
+                'length' => 255
+            ],
+            'number' => [
+                'type' => 'int',
+                'not null' => TRUE,
+                'default' => 0,
+            ],
+            'email' => [
+                'type' => 'varchar',
+                'length' => 255
+            ],
+            'gender' => [
+                'type' => 'int',
+                'size' => 'tiny',
+                'default' => 0,
+            ],
+            
+        ],
+        'primary key' => ['id'],
+    ];
+    return $schema;
+}
