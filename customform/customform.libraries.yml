@@ -1,0 +1,9 @@
+customform_js:
+  version: 1.0
+  js:
+    js/customjs.js: {}
+    dependencies:
+      - core/jquery
+  css:
+    theme:
+      css/customcss.css: {}
