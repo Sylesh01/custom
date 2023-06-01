@@ -1,0 +1,5 @@
+customform.form:
+  title: Custom Form 
+  description: custom form.
+  parent: system.admin_config_system
+  route_name: customform.form 

@@ -1,0 +1,5 @@
+name: Custom Form with Js
+description: Custom form uses Java Script
+type: module
+core_version_requirement: ^8 || ^9
+package: custom
